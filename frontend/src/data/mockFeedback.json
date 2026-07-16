@@ -1,0 +1,59 @@
+{
+  "feedback": [
+    {
+      "id": 1,
+      "eventId": 2,
+      "userId": 5,
+      "userName": "Lisa Anderson",
+      "rating": 5,
+      "title": "Excellent Workshop",
+      "content": "The workshop was very well organized and the instructors were knowledgeable",
+      "timestamp": "2026-07-23T10:00:00Z",
+      "isAnonymous": false
+    },
+    {
+      "id": 2,
+      "eventId": 2,
+      "userId": 4,
+      "userName": "James Wilson",
+      "rating": 4,
+      "title": "Good Content",
+      "content": "Great information shared, would have liked more time for Q&A",
+      "timestamp": "2026-07-24T09:30:00Z",
+      "isAnonymous": false
+    },
+    {
+      "id": 3,
+      "eventId": 3,
+      "userId": 2,
+      "userName": "Michael Chen",
+      "rating": 5,
+      "title": "Outstanding Leadership Session",
+      "content": "This session provided valuable insights into CSR strategy",
+      "timestamp": "2026-07-26T14:00:00Z",
+      "isAnonymous": false
+    },
+    {
+      "id": 4,
+      "eventId": 1,
+      "userId": 6,
+      "userName": "David Martinez",
+      "rating": 4,
+      "title": "Great Summit",
+      "content": "The networking opportunities were valuable, but venue could be improved",
+      "timestamp": "2026-08-16T11:00:00Z",
+      "isAnonymous": false
+    },
+    {
+      "id": 5,
+      "eventId": 1,
+      "userId": 5,
+      "userName": "Lisa Anderson",
+      "rating": 5,
+      "title": "Inspiring and Engaging",
+      "content": "Great speakers and diverse topics. Looking forward to next year!",
+      "timestamp": "2026-08-17T09:00:00Z",
+      "isAnonymous": false
+    }
+  ]
+}

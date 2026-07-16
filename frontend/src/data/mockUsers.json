@@ -1,0 +1,64 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@company.com",
+      "name": "Sarah Johnson",
+      "role": "admin",
+      "avatar": "https://i.pravatar.cc/150?img=1",
+      "department": "Executive",
+      "status": "active",
+      "joinDate": "2023-01-15"
+    },
+    {
+      "id": 2,
+      "email": "manager@company.com",
+      "name": "Michael Chen",
+      "role": "manager",
+      "avatar": "https://i.pravatar.cc/150?img=2",
+      "department": "Stakeholder Relations",
+      "status": "active",
+      "joinDate": "2023-06-20"
+    },
+    {
+      "id": 3,
+      "email": "organizer@company.com",
+      "name": "Emma Rodriguez",
+      "role": "organizer",
+      "avatar": "https://i.pravatar.cc/150?img=3",
+      "department": "Events",
+      "status": "active",
+      "joinDate": "2024-01-10"
+    },
+    {
+      "id": 4,
+      "email": "coordinator@company.com",
+      "name": "James Wilson",
+      "role": "coordinator",
+      "avatar": "https://i.pravatar.cc/150?img=4",
+      "department": "Operations",
+      "status": "active",
+      "joinDate": "2024-02-01"
+    },
+    {
+      "id": 5,
+      "email": "stakeholder@company.com",
+      "name": "Lisa Anderson",
+      "role": "stakeholder",
+      "avatar": "https://i.pravatar.cc/150?img=5",
+      "department": "Community",
+      "status": "active",
+      "joinDate": "2024-03-15"
+    },
+    {
+      "id": 6,
+      "email": "volunteer@company.com",
+      "name": "David Martinez",
+      "role": "volunteer",
+      "avatar": "https://i.pravatar.cc/150?img=6",
+      "department": "Volunteer",
+      "status": "active",
+      "joinDate": "2024-04-01"
+    }
+  ]
+}

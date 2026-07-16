@@ -1,0 +1,64 @@
+export enum EventStatus {
+  DRAFT = 'draft',
+  PUBLISHED = 'published',
+  ONGOING = 'ongoing',
+  COMPLETED = 'completed',
+  CANCELLED = 'cancelled',
+  ARCHIVED = 'archived',
+}
+
+export enum EventType {
+  CORPORATE = 'corporate',
+  SOCIAL = 'social',
+  TRAINING = 'training',
+  CONFERENCE = 'conference',
+  WORKSHOP = 'workshop',
+  SEMINAR = 'seminar',
+  NETWORKING = 'networking',
+  VOLUNTEER = 'volunteer',
+}
+
+export class Event {
+  id: number;
+  title: string;
+  description?: string;
+  eventType: EventType | string;
+  status: EventStatus;
+  startDate: Date;
+  endDate: Date;
+  location?: string;
+  maxCapacity: number;
+  registrationDeadline?: Date;
+  organizerId: number;
+  departmentId?: number;
+  categoryId?: number;
+  budget?: number;
+  imageUrl?: string;
+  createdBy: number;
+  approvedBy?: number;
+  isPublished: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt?: Date;
+
+  constructor(data: Partial<Event> = {}) {
+    Object.assign(this, data);
+  }
+
+  isActive(): boolean {
+    return this.status === EventStatus.PUBLISHED || this.status === EventStatus.ONGOING;
+  }
+
+  isRegistrationOpen(): boolean {
+    if (!this.registrationDeadline) return this.isActive();
+    return this.isActive() && new Date() <= this.registrationDeadline;
+  }
+
+  hasCapacityAvailable(currentRegistrations: number): boolean {
+    return currentRegistrations < this.maxCapacity;
+  }
+
+  canBeModified(): boolean {
+    return this.status === EventStatus.DRAFT;
+  }
+}

@@ -1,0 +1,11 @@
+// Dashboard exports for all roles
+export { SuperAdminDashboard } from './SuperAdminDashboard';
+export { AdminDashboard } from './AdminDashboard';
+export { DivisionManagerDashboard } from './DivisionManagerDashboard';
+export { EventOrganizerDashboard } from './EventOrganizerDashboard';
+export { EmployeeDashboard } from './EmployeeDashboard';
+export { VolunteerDashboard } from './VolunteerDashboard';
+export { SpeakerDashboard } from './SpeakerDashboard';
+export { SponsorDashboard } from './SponsorDashboard';
+export { ExternalUserDashboard } from './ExternalUserDashboard';
+export { CustomerSupportDashboard } from './CustomerSupportDashboard';

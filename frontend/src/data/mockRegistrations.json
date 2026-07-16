@@ -1,0 +1,74 @@
+{
+  "registrations": [
+    {
+      "id": 1,
+      "eventId": 1,
+      "userId": 5,
+      "userName": "Lisa Anderson",
+      "userEmail": "lisa@company.com",
+      "status": "confirmed",
+      "registrationDate": "2026-07-20T10:30:00Z",
+      "checkedInAt": "2026-08-15T08:45:00Z"
+    },
+    {
+      "id": 2,
+      "eventId": 1,
+      "userId": 6,
+      "userName": "David Martinez",
+      "userEmail": "david@company.com",
+      "status": "confirmed",
+      "registrationDate": "2026-07-22T14:15:00Z",
+      "checkedInAt": "2026-08-15T09:10:00Z"
+    },
+    {
+      "id": 3,
+      "eventId": 2,
+      "userId": 5,
+      "userName": "Lisa Anderson",
+      "userEmail": "lisa@company.com",
+      "status": "confirmed",
+      "registrationDate": "2026-07-15T09:00:00Z",
+      "checkedInAt": "2026-07-22T13:55:00Z"
+    },
+    {
+      "id": 4,
+      "eventId": 2,
+      "userId": 4,
+      "userName": "James Wilson",
+      "userEmail": "james@company.com",
+      "status": "confirmed",
+      "registrationDate": "2026-07-16T11:20:00Z",
+      "checkedInAt": "2026-07-22T14:05:00Z"
+    },
+    {
+      "id": 5,
+      "eventId": 3,
+      "userId": 2,
+      "userName": "Michael Chen",
+      "userEmail": "michael@company.com",
+      "status": "confirmed",
+      "registrationDate": "2026-07-20T15:30:00Z",
+      "checkedInAt": "2026-07-25T09:55:00Z"
+    },
+    {
+      "id": 6,
+      "eventId": 4,
+      "userId": 5,
+      "userName": "Lisa Anderson",
+      "userEmail": "lisa@company.com",
+      "status": "confirmed",
+      "registrationDate": "2026-08-15T12:00:00Z",
+      "checkedInAt": null
+    },
+    {
+      "id": 7,
+      "eventId": 1,
+      "userId": 1,
+      "userName": "Sarah Johnson",
+      "userEmail": "sarah@company.com",
+      "status": "confirmed",
+      "registrationDate": "2026-07-01T08:00:00Z",
+      "checkedInAt": "2026-08-15T08:30:00Z"
+    }
+  ]
+}

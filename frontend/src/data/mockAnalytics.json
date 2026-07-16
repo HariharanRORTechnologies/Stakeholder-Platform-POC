@@ -1,0 +1,112 @@
+{
+  "eventAnalytics": {
+    "totalEvents": 5,
+    "publishedEvents": 4,
+    "draftEvents": 1,
+    "totalRegistrations": 600,
+    "totalAttendees": 519,
+    "averageAttendanceRate": 86.5,
+    "avgEventRating": 4.6,
+    "totalBudget": 206500,
+    "budgetUtilized": 181500
+  },
+  "monthlyTrends": [
+    {
+      "month": "January",
+      "events": 2,
+      "registrations": 85,
+      "attendance": 72
+    },
+    {
+      "month": "February",
+      "events": 1,
+      "registrations": 45,
+      "attendance": 40
+    },
+    {
+      "month": "March",
+      "events": 2,
+      "registrations": 120,
+      "attendance": 98
+    },
+    {
+      "month": "April",
+      "events": 0,
+      "registrations": 0,
+      "attendance": 0
+    },
+    {
+      "month": "May",
+      "events": 1,
+      "registrations": 65,
+      "attendance": 58
+    },
+    {
+      "month": "June",
+      "events": 2,
+      "registrations": 155,
+      "attendance": 139
+    },
+    {
+      "month": "July",
+      "events": 3,
+      "registrations": 130,
+      "attendance": 112
+    },
+    {
+      "month": "August",
+      "events": 1,
+      "registrations": 150,
+      "attendance": 140
+    }
+  ],
+  "eventTypeDistribution": [
+    {
+      "type": "Conference",
+      "count": 2,
+      "percentage": 40
+    },
+    {
+      "type": "Workshop",
+      "count": 1,
+      "percentage": 20
+    },
+    {
+      "type": "Seminar",
+      "count": 1,
+      "percentage": 20
+    },
+    {
+      "type": "Social",
+      "count": 1,
+      "percentage": 20
+    }
+  ],
+  "ratingDistribution": [
+    {
+      "rating": 5,
+      "count": 142,
+      "percentage": 32
+    },
+    {
+      "rating": 4,
+      "count": 198,
+      "percentage": 45
+    },
+    {
+      "rating": 3,
+      "count": 85,
+      "percentage": 19
+    },
+    {
+      "rating": 2,
+      "count": 15,
+      "percentage": 3
+    },
+    {
+      "rating": 1,
+      "count": 5,
+      "percentage": 1
+    }
+  ]
+}

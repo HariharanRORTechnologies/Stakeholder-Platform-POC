@@ -1,0 +1,847 @@
+/* ========================================
+   FONT FACE IMPORTS
+   ======================================== */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Inter'), local('Inter-Regular'),
+       url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap') format('truetype');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: local('Inter Medium'), local('Inter-Medium'),
+       url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap') format('truetype');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Inter SemiBold'), local('Inter-SemiBold'),
+       url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap') format('truetype');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Inter Bold'), local('Inter-Bold'),
+       url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap') format('truetype');
+}
+
+/* ========================================
+   GLOBAL STYLES
+   ======================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #F8FAFC;
+  color: #111827;
+  line-height: 1.5;
+  letter-spacing: 0.3px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ========================================
+   SCROLLBAR STYLES
+   ======================================== */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F3F4F6;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #16A34A;
+  border-radius: 10px;
+  border: 2px solid #F3F4F6;
+  transition: background-color 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #15803D;
+  border-color: #E5E7EB;
+}
+
+::-webkit-scrollbar-corner {
+  background: #F3F4F6;
+}
+
+/* Firefox Scrollbar */
+* {
+  scrollbar-color: #16A34A #F3F4F6;
+  scrollbar-width: thin;
+}
+
+/* ========================================
+   SELECTION STYLES
+   ======================================== */
+
+::selection {
+  background-color: #16A34A;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background-color: #16A34A;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+
+/* ========================================
+   LINK STYLES
+   ======================================== */
+
+a {
+  color: #16A34A;
+  text-decoration: none;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+  font-weight: 500;
+}
+
+a:hover {
+  color: #15803D;
+  text-decoration: underline;
+}
+
+a:active {
+  color: #166534;
+}
+
+a:visited {
+  color: #16A34A;
+}
+
+/* ========================================
+   FORM INPUT STYLES
+   ======================================== */
+
+input,
+textarea,
+select {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Input Focus Styles */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.1);
+  border-color: #16A34A;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #9CA3AF;
+  opacity: 1;
+}
+
+input:disabled,
+textarea:disabled,
+select:disabled {
+  background-color: #F3F4F6;
+  color: #9CA3AF;
+  cursor: not-allowed;
+}
+
+/* ========================================
+   BUTTON STYLES
+   ======================================== */
+
+button {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ========================================
+   CODE BLOCK STYLES
+   ======================================== */
+
+code {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Courier New', monospace;
+  background-color: #F3F4F6;
+  color: #111827;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+
+pre {
+  background-color: #1F2937;
+  color: #F3F4F6;
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  border: 1px solid #374151;
+  line-height: 1.5;
+  font-size: 0.875rem;
+}
+
+pre code {
+  padding: 0;
+  background: none;
+  color: #F3F4F6;
+}
+
+/* ========================================
+   ANIMATIONS & TRANSITIONS
+   ======================================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slideUpIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ========================================
+   ANIMATION UTILITY CLASSES
+   ======================================== */
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+.fade-in-scale {
+  animation: fadeInScale 0.4s ease-out;
+}
+
+.slide-in-up {
+  animation: slideInUp 0.4s ease-out;
+}
+
+.slide-in-down {
+  animation: slideInDown 0.4s ease-out;
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.4s ease-out;
+}
+
+.slide-in-right {
+  animation: slideInRight 0.4s ease-out;
+}
+
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.bounce {
+  animation: bounce 1s ease-in-out infinite;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+.slide-up-in {
+  animation: slideUpIn 0.5s ease-out;
+}
+
+.pop-in {
+  animation: popIn 0.6s ease-out;
+}
+
+.shimmer {
+  animation: shimmer 2s infinite;
+  background: linear-gradient(
+    90deg,
+    #F3F4F6 0%,
+    #E5E7EB 50%,
+    #F3F4F6 100%
+  );
+  background-size: 1000px 100%;
+}
+
+/* ========================================
+   TEXT UTILITY CLASSES
+   ======================================== */
+
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text-ellipsis-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+.text-ellipsis-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+.text-ellipsis-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+/* ========================================
+   FLEX UTILITY CLASSES
+   ======================================== */
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-start {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.flex-end {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-gap {
+  display: flex;
+  gap: 1rem;
+}
+
+/* ========================================
+   GRADIENT UTILITIES
+   ======================================== */
+
+.gradient-text {
+  background: linear-gradient(135deg, #16A34A 0%, #22C55E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-to-right {
+  background: linear-gradient(90deg, #16A34A 0%, #22C55E 100%);
+}
+
+.gradient-to-bottom {
+  background: linear-gradient(180deg, #16A34A 0%, #22C55E 100%);
+}
+
+/* ========================================
+   SHADOW UTILITIES
+   ======================================== */
+
+.shadow-xs {
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+}
+
+.shadow-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.shadow-md {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.shadow-xl {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.shadow-2xl {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.shadow-green {
+  box-shadow: 0 0 20px rgba(22, 163, 74, 0.2);
+}
+
+/* ========================================
+   SPACING UTILITY CLASSES
+   ======================================== */
+
+.gap-xs {
+  gap: 0.25rem;
+}
+
+.gap-sm {
+  gap: 0.5rem;
+}
+
+.gap-md {
+  gap: 1rem;
+}
+
+.gap-lg {
+  gap: 1.5rem;
+}
+
+.gap-xl {
+  gap: 2rem;
+}
+
+.p-0 {
+  padding: 0;
+}
+
+.p-xs {
+  padding: 0.25rem;
+}
+
+.p-sm {
+  padding: 0.5rem;
+}
+
+.p-md {
+  padding: 1rem;
+}
+
+.p-lg {
+  padding: 1.5rem;
+}
+
+.p-xl {
+  padding: 2rem;
+}
+
+/* ========================================
+   RESPONSIVE MEDIA QUERIES
+   ======================================== */
+
+@media (max-width: 960px) {
+  body {
+    font-size: 15px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+  }
+
+  .shadow-lg {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@media (max-width: 400px) {
+  body {
+    font-size: 13px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.125rem;
+  }
+
+  h3 {
+    font-size: 0.875rem;
+  }
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+
+@media print {
+  body {
+    background-color: #FFFFFF;
+    color: #111827;
+  }
+
+  a {
+    color: #16A34A;
+    text-decoration: underline;
+  }
+
+  button,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"] {
+    display: none;
+  }
+
+  .no-print {
+    display: none;
+  }
+
+  *,
+  *:before,
+  *:after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+}
+
+/* ========================================
+   DARK MODE SUPPORT
+   ======================================== */
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #1F2937;
+    color: #F3F4F6;
+  }
+
+  #root {
+    background-color: #1F2937;
+  }
+
+  a {
+    color: #86EFAC;
+  }
+
+  a:hover {
+    color: #22C55E;
+  }
+
+  a:visited {
+    color: #86EFAC;
+  }
+
+  code {
+    background-color: #111827;
+    color: #D1D5DB;
+  }
+
+  pre {
+    background-color: #111827;
+    color: #F3F4F6;
+    border-color: #374151;
+  }
+
+  pre code {
+    color: #D1D5DB;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #111827;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #22C55E;
+    border-color: #111827;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #16A34A;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: #111827;
+  }
+
+  input,
+  textarea,
+  select {
+    background-color: #374151;
+    color: #F3F4F6;
+    border-color: #4B5563;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #9CA3AF;
+  }
+
+  input:disabled,
+  textarea:disabled,
+  select:disabled {
+    background-color: #1F2937;
+    color: #6B7280;
+  }
+
+  ::selection {
+    background-color: #22C55E;
+    color: #111827;
+  }
+
+  ::-moz-selection {
+    background-color: #22C55E;
+    color: #111827;
+  }
+
+  .shadow-xs,
+  .shadow-sm,
+  .shadow-md,
+  .shadow-lg,
+  .shadow-xl,
+  .shadow-2xl {
+    box-shadow: 0 0 1px rgba(22, 163, 74, 0.3);
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #86EFAC 0%, #22C55E 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      #374151 0%,
+      #4B5563 50%,
+      #374151 100%
+    );
+  }
+}
+
+/* ========================================
+   HIGH CONTRAST MODE SUPPORT
+   ======================================== */
+
+@media (prefers-contrast: more) {
+  body {
+    color: #000000;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  button {
+    border: 2px solid currentColor;
+  }
+}
+
+/* ========================================
+   REDUCED MOTION SUPPORT
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

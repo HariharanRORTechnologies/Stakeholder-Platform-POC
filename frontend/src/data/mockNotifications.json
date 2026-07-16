@@ -1,0 +1,49 @@
+{
+  "notifications": [
+    {
+      "id": 1,
+      "title": "Event Registration Confirmed",
+      "message": "Your registration for Annual Stakeholder Summit 2026 has been confirmed",
+      "type": "success",
+      "timestamp": "2026-07-20T10:30:00Z",
+      "isRead": false,
+      "relatedEventId": 1
+    },
+    {
+      "id": 2,
+      "title": "Reminder: Upcoming Event",
+      "message": "Q3 Community Engagement Workshop starts in 2 days",
+      "type": "info",
+      "timestamp": "2026-07-20T08:00:00Z",
+      "isRead": false,
+      "relatedEventId": 2
+    },
+    {
+      "id": 3,
+      "title": "Feedback Request",
+      "message": "Please share your feedback about the recent CSR Leadership Initiative",
+      "type": "warning",
+      "timestamp": "2026-07-26T14:00:00Z",
+      "isRead": false,
+      "relatedEventId": 3
+    },
+    {
+      "id": 4,
+      "title": "Certificate Available",
+      "message": "Your participation certificate for Q3 Workshop is ready to download",
+      "type": "success",
+      "timestamp": "2026-07-25T16:30:00Z",
+      "isRead": true,
+      "relatedEventId": 2
+    },
+    {
+      "id": 5,
+      "title": "Event Cancelled",
+      "message": "The July 20th networking event has been rescheduled to July 27th",
+      "type": "error",
+      "timestamp": "2026-07-19T09:00:00Z",
+      "isRead": true,
+      "relatedEventId": null
+    }
+  ]
+}
