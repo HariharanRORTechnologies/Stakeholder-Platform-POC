@@ -43,7 +43,7 @@ import {
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/store';
-import { toggleSidebar, setHasSelectedRole } from '../features/mockData/store/uiSlice';
+import { toggleSidebar, setHasSelectedRole, setTheme } from '../features/mockData/store/uiSlice';
 
 interface MenuItem {
   label: string;
@@ -71,11 +71,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const sidebarOpen = useSelector((state: RootState) => state.ui.sidebarOpen);
   const currentRole = useSelector((state: RootState) => state.ui.currentRole);
+  const theme = useSelector((state: RootState) => state.ui.theme);
   const notifications = useSelector((state: RootState) => state.mockNotifications.items);
   const unreadCount = notifications.filter(n => !n.isRead).length;
 
   const [searchQuery, setSearchQuery] = React.useState('');
-  const [darkMode, setDarkMode] = React.useState(false);
   const [profileMenuAnchor, setProfileMenuAnchor] = React.useState<null | HTMLElement>(null);
   const [notificationMenuAnchor, setNotificationMenuAnchor] = React.useState<null | HTMLElement>(null);
 
@@ -282,13 +282,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
             {/* Header Actions */}
             <Stack direction="row" spacing={1} alignItems="center">
               {/* Dark Mode Toggle */}
-              <Tooltip title={darkMode ? 'Light Mode' : 'Dark Mode'}>
+              <Tooltip title={theme === 'dark' ? 'Light Mode' : 'Dark Mode'}>
                 <IconButton
                   color="inherit"
-                  onClick={() => setDarkMode(!darkMode)}
+                  onClick={() => dispatch(setTheme(theme === 'dark' ? 'light' : 'dark'))}
                   sx={{ '&:hover': { backgroundColor: 'rgba(255,255,255,0.1)' } }}
                 >
-                  {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+                  {theme === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
                 </IconButton>
               </Tooltip>
 
@@ -348,10 +348,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <IconButton
               color="inherit"
               size="small"
-              onClick={() => setDarkMode(!darkMode)}
+              onClick={() => dispatch(setTheme(theme === 'dark' ? 'light' : 'dark'))}
               sx={{ mr: 1 }}
             >
-              {darkMode ? <LightModeIcon fontSize="small" /> : <DarkModeIcon fontSize="small" />}
+              {theme === 'dark' ? <LightModeIcon fontSize="small" /> : <DarkModeIcon fontSize="small" />}
             </IconButton>
             <IconButton
               color="inherit"
@@ -413,10 +413,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   <ListItemButton
                     key={notif.id}
                     sx={{
-                      backgroundColor: notif.isRead ? 'transparent' : '#F0FDF4',
+                      backgroundColor: notif.isRead ? 'transparent' : (theme === 'dark' ? 'rgba(34, 197, 94, 0.1)' : '#F0FDF4'),
                       borderRadius: 1,
                       mb: 1,
-                      '&:hover': { backgroundColor: notif.isRead ? '#F5F5F5' : '#DCFCE7' }
+                      '&:hover': {
+                        backgroundColor: notif.isRead
+                          ? (theme === 'dark' ? '#334155' : '#F5F5F5')
+                          : (theme === 'dark' ? 'rgba(34, 197, 94, 0.2)' : '#DCFCE7')
+                      }
                     }}
                   >
                     <ListItemText
@@ -436,7 +440,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </Box>
         </Menu>
 
-        <Box sx={{ flex: 1, overflowY: 'auto', backgroundColor: '#fafafa' }}>
+        <Box sx={{
+          flex: 1,
+          overflowY: 'auto',
+          backgroundColor: theme === 'dark' ? '#0f172a' : '#fafafa',
+          transition: 'background-color 0.3s ease'
+        }}>
           {children}
         </Box>
       </Box>

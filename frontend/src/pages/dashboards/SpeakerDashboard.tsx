@@ -14,6 +14,7 @@ import {
   TableHead,
   TableRow,
   Rating,
+  useTheme,
 } from '@mui/material';
 import {
   LineChart,
@@ -35,6 +36,8 @@ import {
   Star as FeedbackIcon,
   TrendingUp as EngagementIcon,
 } from '@mui/icons-material';
+import { getThemeAwareColors } from '../../utils/themeColors';
+import { CHART_COLORS, getTooltipStyles, LINE_CHART_CONFIG } from '../../utils/chartStyles';
 
 interface StatCard {
   title: string;
@@ -45,38 +48,76 @@ interface StatCard {
 }
 
 function KPICard({ title, value, icon, color, change }: StatCard) {
+  const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
+
   return (
     <Card
       sx={{
         height: '100%',
-        borderLeft: `4px solid ${color}`,
+        borderLeft: `5px solid ${color}`,
         borderRadius: '12px',
-        transition: 'all 0.3s ease',
+        background: isDarkMode
+          ? `rgba(30, 41, 59, 0.8)`
+          : `linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,250,252,0.95))`,
+        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        position: 'relative',
+        overflow: 'hidden',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: `linear-gradient(135deg, ${color}05, transparent)`,
+          pointerEvents: 'none',
+        },
         '&:hover': {
-          boxShadow: '0 8px 16px rgba(0,0,0,0.1)',
-          transform: 'translateY(-2px)',
+          boxShadow: isDarkMode
+            ? '0 20px 25px rgba(0, 0, 0, 0.5)'
+            : '0 20px 25px rgba(0, 0, 0, 0.08)',
+          transform: 'translateY(-6px)',
         },
       }}
     >
-      <CardContent>
+      <CardContent sx={{ position: 'relative', zIndex: 1 }}>
         <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
           <Box>
-            <Typography variant="body2" color="textSecondary" sx={{ fontWeight: 600 }}>
+            <Typography variant="body2" color="textSecondary" sx={{ fontWeight: 600, letterSpacing: '0.5px' }}>
               {title}
             </Typography>
-            <Typography variant="h5" sx={{ fontWeight: 'bold', mt: 1 }}>
+            <Typography variant="h5" sx={{ fontWeight: '700', mt: 1, color: color }}>
               {value}
             </Typography>
             {change && (
               <Typography
                 variant="caption"
-                sx={{ color: change.includes('+') ? '#16A34A' : '#DC2626', mt: 1, display: 'block' }}
+                sx={{
+                  color: change.includes('+') ? CHART_COLORS.success : CHART_COLORS.error,
+                  mt: 1,
+                  display: 'block',
+                  fontWeight: 600,
+                }}
               >
                 {change}
               </Typography>
             )}
           </Box>
-          <Box sx={{ color, opacity: 0.2, fontSize: 40 }}>
+          <Box
+            sx={{
+              color,
+              opacity: isDarkMode ? 0.15 : 0.1,
+              fontSize: 48,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 60,
+              height: 60,
+              borderRadius: '12px',
+              background: isDarkMode ? `rgba(255,255,255,0.03)` : `${color}10`,
+            }}
+          >
             {icon}
           </Box>
         </Stack>
@@ -86,6 +127,10 @@ function KPICard({ title, value, icon, color, change }: StatCard) {
 }
 
 export function SpeakerDashboard() {
+  const theme = useTheme();
+  const themeMode = theme.palette.mode as 'light' | 'dark';
+  const themeColors = getThemeAwareColors(themeMode);
+
   const events = useSelector((state: RootState) => state.mockEvents.items);
 
   // Speaker metrics
@@ -156,8 +201,8 @@ export function SpeakerDashboard() {
   const upcomingSessions = events.slice(0, 3);
 
   return (
-    <Box sx={{ p: 3, backgroundColor: '#f9fafb', minHeight: '100vh' }}>
-      <Typography variant="h4" sx={{ mb: 1, fontWeight: 'bold', color: '#1f2937' }}>
+    <Box sx={{ p: 3, backgroundColor: themeColors.pageBackground, minHeight: '100vh' }}>
+      <Typography variant="h4" sx={{ mb: 1, fontWeight: 'bold', color: themeColors.textHint }}>
         Speaker Dashboard
       </Typography>
       <Typography variant="body2" color="textSecondary" sx={{ mb: 3 }}>
@@ -171,7 +216,7 @@ export function SpeakerDashboard() {
             title="Total Engagements"
             value={speakerMetrics.engagements}
             icon={<SpeakerIcon />}
-            color="#16A34A"
+            color={CHART_COLORS.forestGreen}
             change="+3 this year"
           />
         </Grid>
@@ -180,7 +225,7 @@ export function SpeakerDashboard() {
             title="Total Audience Reached"
             value={`${(speakerMetrics.totalAudience / 1000).toFixed(1)}K`}
             icon={<AudienceIcon />}
-            color="#15803D"
+            color={CHART_COLORS.purple}
             change="+180 this month"
           />
         </Grid>
@@ -189,7 +234,7 @@ export function SpeakerDashboard() {
             title="Avg Audience Rating"
             value={speakerMetrics.avgRating}
             icon={<FeedbackIcon />}
-            color="#22C55E"
+            color={CHART_COLORS.indigo}
             change="/ 5.0"
           />
         </Grid>
@@ -198,7 +243,7 @@ export function SpeakerDashboard() {
             title="Upcoming Sessions"
             value={speakerMetrics.upcomingSessions}
             icon={<EngagementIcon />}
-            color="#86EFAC"
+            color={CHART_COLORS.blue}
             change="This month"
           />
         </Grid>
@@ -212,18 +257,25 @@ export function SpeakerDashboard() {
               <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
                 Audience Size Trend
               </Typography>
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height={220}>
                 <LineChart data={audienceData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="month" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                    stroke={themeMode === 'dark' ? '#334155' : '#e5e7eb'}
+                    vertical={false}
+                    opacity={0.2}
+                  />
+                  <XAxis dataKey="month" stroke={themeColors.textHint} opacity={0.6} />
+                  <YAxis stroke={themeColors.textHint} opacity={0.6} />
+                  <Tooltip {...getTooltipStyles(themeMode === 'dark')} />
+                  <Legend wrapperStyle={{ paddingTop: '20px', fontSize: '12px' }} />
                   <Line
-                    type="monotone"
+                    type="natural"
                     dataKey="audience"
-                    stroke="#16A34A"
-                    strokeWidth={2}
+                    stroke={CHART_COLORS.purple}
+                    strokeWidth={LINE_CHART_CONFIG.strokeWidth}
+                    dot={LINE_CHART_CONFIG.dot}
+                    activeDot={LINE_CHART_CONFIG.activeDot}
                     name="Audience Size"
                   />
                 </LineChart>
@@ -281,17 +333,22 @@ export function SpeakerDashboard() {
               <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
                 Audience Engagement by Topic
               </Typography>
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height={220}>
                 <BarChart
                   data={engagementByTopic}
                   layout="vertical"
                   margin={{ top: 5, right: 30, left: 80, bottom: 5 }}
                 >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis type="number" domain={[0, 100]} />
-                  <YAxis dataKey="topic" type="category" width={80} />
-                  <Tooltip />
-                  <Bar dataKey="engagement" fill="#16A34A" radius={[0, 8, 8, 0]} />
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                    stroke={themeMode === 'dark' ? '#334155' : '#e5e7eb'}
+                    vertical={true}
+                    opacity={0.3}
+                  />
+                  <XAxis type="number" domain={[0, 100]} stroke={themeColors.textHint} opacity={0.7} />
+                  <YAxis dataKey="topic" type="category" width={80} stroke={themeColors.textHint} opacity={0.7} />
+                  <Tooltip {...getTooltipStyles(themeMode === 'dark')} />
+                  <Bar dataKey="engagement" fill={CHART_COLORS.purple} radius={[0, 8, 8, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -311,7 +368,7 @@ export function SpeakerDashboard() {
                     key={event.id}
                     sx={{
                       p: 2,
-                      backgroundColor: '#F0FDF4',
+                      backgroundColor: themeColors.cardBackground,
                       borderRadius: '8px',
                       borderLeft: '4px solid #16A34A',
                     }}
@@ -356,7 +413,7 @@ export function SpeakerDashboard() {
           <TableContainer>
             <Table>
               <TableHead>
-                <TableRow sx={{ backgroundColor: '#f3f4f6' }}>
+                <TableRow sx={{ backgroundColor: themeColors.tableHeaderBackground }}>
                   <TableCell sx={{ fontWeight: 'bold' }}>Title</TableCell>
                   <TableCell sx={{ fontWeight: 'bold' }}>Event</TableCell>
                   <TableCell align="right" sx={{ fontWeight: 'bold' }}>

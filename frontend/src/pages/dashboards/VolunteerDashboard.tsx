@@ -14,6 +14,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  useTheme,
 } from '@mui/material';
 import {
   PieChart,
@@ -36,6 +37,8 @@ import {
   Star as SkillIcon,
   TrendingUp as ActivityIcon,
 } from '@mui/icons-material';
+import { getThemeAwareColors } from '../../utils/themeColors';
+import { CHART_COLORS, getTooltipStyles, LINE_CHART_CONFIG } from '../../utils/chartStyles';
 
 interface StatCard {
   title: string;
@@ -46,38 +49,76 @@ interface StatCard {
 }
 
 function KPICard({ title, value, icon, color, change }: StatCard) {
+  const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
+
   return (
     <Card
       sx={{
         height: '100%',
-        borderLeft: `4px solid ${color}`,
+        borderLeft: `5px solid ${color}`,
         borderRadius: '12px',
-        transition: 'all 0.3s ease',
+        background: isDarkMode
+          ? `rgba(30, 41, 59, 0.8)`
+          : `linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,250,252,0.95))`,
+        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        position: 'relative',
+        overflow: 'hidden',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: `linear-gradient(135deg, ${color}05, transparent)`,
+          pointerEvents: 'none',
+        },
         '&:hover': {
-          boxShadow: '0 8px 16px rgba(0,0,0,0.1)',
-          transform: 'translateY(-2px)',
+          boxShadow: isDarkMode
+            ? '0 20px 25px rgba(0, 0, 0, 0.5)'
+            : '0 20px 25px rgba(0, 0, 0, 0.08)',
+          transform: 'translateY(-6px)',
         },
       }}
     >
-      <CardContent>
+      <CardContent sx={{ position: 'relative', zIndex: 1 }}>
         <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
           <Box>
-            <Typography variant="body2" color="textSecondary" sx={{ fontWeight: 600 }}>
+            <Typography variant="body2" color="textSecondary" sx={{ fontWeight: 600, letterSpacing: '0.5px' }}>
               {title}
             </Typography>
-            <Typography variant="h5" sx={{ fontWeight: 'bold', mt: 1 }}>
+            <Typography variant="h5" sx={{ fontWeight: '700', mt: 1, color: color }}>
               {value}
             </Typography>
             {change && (
               <Typography
                 variant="caption"
-                sx={{ color: change.includes('+') ? '#16A34A' : '#DC2626', mt: 1, display: 'block' }}
+                sx={{
+                  color: change.includes('+') ? CHART_COLORS.success : CHART_COLORS.error,
+                  mt: 1,
+                  display: 'block',
+                  fontWeight: 600,
+                }}
               >
                 {change}
               </Typography>
             )}
           </Box>
-          <Box sx={{ color, opacity: 0.2, fontSize: 40 }}>
+          <Box
+            sx={{
+              color,
+              opacity: isDarkMode ? 0.15 : 0.1,
+              fontSize: 48,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 60,
+              height: 60,
+              borderRadius: '12px',
+              background: isDarkMode ? `rgba(255,255,255,0.03)` : `${color}10`,
+            }}
+          >
             {icon}
           </Box>
         </Stack>
@@ -87,6 +128,10 @@ function KPICard({ title, value, icon, color, change }: StatCard) {
 }
 
 export function VolunteerDashboard() {
+  const theme = useTheme();
+  const themeMode = theme.palette.mode as 'light' | 'dark';
+  const themeColors = getThemeAwareColors(themeMode);
+
   const events = useSelector((state: RootState) => state.mockEvents.items);
 
   // Volunteer metrics
@@ -121,10 +166,10 @@ export function VolunteerDashboard() {
 
   // Hours distribution by category
   const hoursDistribution = [
-    { name: 'Setup', value: 45, fill: '#16A34A' },
-    { name: 'Registration', value: 32, fill: '#22C55E' },
-    { name: 'Support', value: 28, fill: '#86EFAC' },
-    { name: 'Cleanup', value: 23, fill: '#DCFCE7' },
+    { name: 'Setup', value: 45, fill: CHART_COLORS.teal },
+    { name: 'Registration', value: 32, fill: CHART_COLORS.indigo },
+    { name: 'Support', value: 28, fill: CHART_COLORS.amber },
+    { name: 'Cleanup', value: 23, fill: CHART_COLORS.blue },
   ];
 
   // Recent activities
@@ -138,8 +183,8 @@ export function VolunteerDashboard() {
   const opportunityEvents = events.slice(0, 3);
 
   return (
-    <Box sx={{ p: 3, backgroundColor: '#f9fafb', minHeight: '100vh' }}>
-      <Typography variant="h4" sx={{ mb: 1, fontWeight: 'bold', color: '#1f2937' }}>
+    <Box sx={{ p: 3, backgroundColor: themeColors.pageBackground, minHeight: '100vh' }}>
+      <Typography variant="h4" sx={{ mb: 1, fontWeight: 'bold', color: themeColors.textHint }}>
         Volunteer Dashboard
       </Typography>
       <Typography variant="body2" color="textSecondary" sx={{ mb: 3 }}>
@@ -153,7 +198,7 @@ export function VolunteerDashboard() {
             title="Hours Contributed"
             value={volunteerMetrics.hoursContributed}
             icon={<HoursIcon />}
-            color="#16A34A"
+            color={CHART_COLORS.teal}
             change="+18 this month"
           />
         </Grid>
@@ -162,7 +207,7 @@ export function VolunteerDashboard() {
             title="Available Opportunities"
             value={volunteerMetrics.availableOpportunities}
             icon={<VolunteerIcon />}
-            color="#15803D"
+            color={CHART_COLORS.blue}
             change="This month"
           />
         </Grid>
@@ -171,7 +216,7 @@ export function VolunteerDashboard() {
             title="Skills Certified"
             value="4"
             icon={<SkillIcon />}
-            color="#22C55E"
+            color={CHART_COLORS.indigo}
             change="+1 this quarter"
           />
         </Grid>
@@ -180,7 +225,7 @@ export function VolunteerDashboard() {
             title="Upcoming Events"
             value={volunteerMetrics.upcomingVolunteerEvents}
             icon={<ActivityIcon />}
-            color="#86EFAC"
+            color={CHART_COLORS.emerald}
             change="This week"
           />
         </Grid>
@@ -254,19 +299,37 @@ export function VolunteerDashboard() {
       {/* Monthly Hours Trend */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} md={8}>
-          <Card sx={{ borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}>
+          <Card
+            sx={{
+              borderRadius: '12px',
+              boxShadow: themeMode === 'dark' ? '0 4px 16px rgba(0,0,0,0.3)' : '0 4px 12px rgba(0,0,0,0.08)',
+            }}
+          >
             <CardContent>
-              <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold', color: themeColors.textHint }}>
                 Monthly Volunteer Hours
               </Typography>
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height={220}>
                 <LineChart data={monthlyHours}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="month" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Line type="monotone" dataKey="hours" stroke="#16A34A" strokeWidth={2} name="Hours" />
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                    stroke={themeMode === 'dark' ? '#334155' : '#e5e7eb'}
+                    vertical={false}
+                    opacity={0.2}
+                  />
+                  <XAxis dataKey="month" stroke={themeColors.textHint} opacity={0.6} />
+                  <YAxis stroke={themeColors.textHint} opacity={0.6} />
+                  <Tooltip {...getTooltipStyles(themeMode === 'dark')} />
+                  <Legend wrapperStyle={{ paddingTop: '20px', fontSize: '12px' }} />
+                  <Line
+                    type="natural"
+                    dataKey="hours"
+                    stroke={CHART_COLORS.teal}
+                    strokeWidth={LINE_CHART_CONFIG.strokeWidth}
+                    dot={LINE_CHART_CONFIG.dot}
+                    activeDot={LINE_CHART_CONFIG.activeDot}
+                    name="Hours"
+                  />
                 </LineChart>
               </ResponsiveContainer>
             </CardContent>
@@ -321,7 +384,7 @@ export function VolunteerDashboard() {
               <TableContainer>
                 <Table size="small">
                   <TableHead>
-                    <TableRow sx={{ backgroundColor: '#f3f4f6' }}>
+                    <TableRow sx={{ backgroundColor: themeColors.tableHeaderBackground }}>
                       <TableCell sx={{ fontWeight: 'bold' }}>Activity</TableCell>
                       <TableCell align="right" sx={{ fontWeight: 'bold' }}>
                         Hours
@@ -361,7 +424,7 @@ export function VolunteerDashboard() {
                     key={event.id}
                     sx={{
                       p: 2,
-                      backgroundColor: '#F0FDF4',
+                      backgroundColor: themeColors.cardBackground,
                       borderRadius: '8px',
                       borderLeft: '4px solid #16A34A',
                     }}

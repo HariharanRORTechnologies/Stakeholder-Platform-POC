@@ -6,6 +6,7 @@ import { Layout } from './components/Layout';
 import { Dashboard } from './pages/Dashboard';
 import { EventsPage } from './pages/EventsPage';
 import { RegistrationsPage } from './pages/RegistrationsPage';
+import { AttendeesPage } from './pages/AttendeesPage';
 import { LoginPage } from './pages/LoginPage';
 import { RootState } from './store/store';
 
@@ -78,6 +79,7 @@ function ProtectedRoutes() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/events" element={<EventsPage />} />
           <Route path="/registrations" element={<RegistrationsPage />} />
+          <Route path="/attendees" element={<AttendeesPage />} />
           <Route path="/feedback" element={<FeedbackPage />} />
           <Route path="/certificates" element={<CertificatesPage />} />
           <Route path="/reports" element={<ReportsPage />} />

@@ -18,12 +18,12 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import { Download as DownloadIcon } from '@mui/icons-material';
 
-const COLORS = ['#667eea', '#764ba2', '#f093fb', '#4facfe'];
+const COLORS = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E2'];
 
 export function ReportsPage() {
   const analytics = useSelector((state: RootState) => state.mockAnalytics);
@@ -105,7 +105,7 @@ export function ReportsPage() {
                   <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
                     Event Type Distribution
                   </Typography>
-                  <ResponsiveContainer width="100%" height={300}>
+                  <ResponsiveContainer width="100%" height={220}>
                     <PieChart>
                       <Pie
                         data={analytics.eventTypeDistribution}
@@ -114,14 +114,15 @@ export function ReportsPage() {
                         labelLine={false}
                         label={({ name, value }) => `${name}: ${value}%`}
                         outerRadius={80}
-                        fill="#8884d8"
+                        fill="#FF6B6B"
                         dataKey="percentage"
                       >
                         {analytics.eventTypeDistribution.map((_entry, index) => (
                           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                       </Pie>
-                      <Tooltip />
+                      <Tooltip formatter={(value) => `${value}%`} />
+                      <Legend />
                     </PieChart>
                   </ResponsiveContainer>
                 </CardContent>
@@ -134,13 +135,14 @@ export function ReportsPage() {
                   <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
                     Rating Distribution
                   </Typography>
-                  <ResponsiveContainer width="100%" height={300}>
+                  <ResponsiveContainer width="100%" height={220}>
                     <BarChart data={analytics.ratingDistribution}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis dataKey="rating" />
                       <YAxis />
-                      <Tooltip />
-                      <Bar dataKey="count" fill="#667eea" />
+                      <Tooltip cursor={{ fill: 'rgba(0,0,0,0.1)' }} />
+                      <Legend />
+                      <Bar dataKey="count" fill="#16A34A" radius={[8, 8, 0, 0]} label={{ position: 'top', fill: '#1f2937', fontSize: 12 }} name="Count" />
                     </BarChart>
                   </ResponsiveContainer>
                 </CardContent>

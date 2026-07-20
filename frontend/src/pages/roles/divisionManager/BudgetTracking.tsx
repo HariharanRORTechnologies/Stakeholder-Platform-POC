@@ -160,15 +160,15 @@ export function BudgetTracking() {
               <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
                 Budget Allocation
               </Typography>
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height={220}>
                 <BarChart data={budgets}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="category" angle={-45} textAnchor="end" height={100} />
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="allocated" fill="#16A34A" name="Allocated" />
-                  <Bar dataKey="spent" fill="#22C55E" name="Spent" />
+                  <Bar dataKey="allocated" fill="#45B7D1" radius={[8, 8, 0, 0]} label={{ position: 'top', fill: '#1f2937', fontSize: 11 }} name="Allocated" />
+                  <Bar dataKey="spent" fill="#FF6B6B" radius={[8, 8, 0, 0]} label={{ position: 'top', fill: '#1f2937', fontSize: 11 }} name="Spent" />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -181,15 +181,15 @@ export function BudgetTracking() {
               <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
                 Spending Trend
               </Typography>
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height={220}>
                 <LineChart data={spendingTrend}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="month" />
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Line type="monotone" dataKey="budget" stroke="#16A34A" strokeWidth={2} name="Budget" />
-                  <Line type="monotone" dataKey="spent" stroke="#EAB308" strokeWidth={2} name="Spent" />
+                  <Line type="monotone" dataKey="budget" stroke="#45B7D1" strokeWidth={2.5} dot={{ fill: '#45B7D1', r: 4 }} activeDot={{ r: 6 }} name="Budget" />
+                  <Line type="monotone" dataKey="spent" stroke="#FF6B6B" strokeWidth={2.5} dot={{ fill: '#FF6B6B', r: 4 }} activeDot={{ r: 6 }} name="Spent" />
                 </LineChart>
               </ResponsiveContainer>
             </CardContent>

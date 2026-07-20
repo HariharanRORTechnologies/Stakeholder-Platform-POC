@@ -29,11 +29,22 @@ interface UIState {
   };
 }
 
+// Initialize theme from localStorage, default to light
+const initializeTheme = (): 'light' | 'dark' => {
+  if (typeof window !== 'undefined') {
+    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
+    if (savedTheme === 'light' || savedTheme === 'dark') {
+      return savedTheme;
+    }
+  }
+  return 'light';
+};
+
 const initialState: UIState = {
   currentRole: 'stakeholder',
   hasSelectedRole: false,
   sidebarOpen: true,
-  theme: 'light',
+  theme: initializeTheme(),
   toastMessage: {
     message: '',
     type: 'info',
@@ -59,6 +70,10 @@ const uiSlice = createSlice({
     },
     setTheme: (state, action: PayloadAction<'light' | 'dark'>) => {
       state.theme = action.payload;
+      // Save to localStorage for persistence
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('theme', action.payload);
+      }
     },
     showToast: (state, action: PayloadAction<Omit<UIState['toastMessage'], 'id' | 'open'>>) => {
       state.toastMessage = {

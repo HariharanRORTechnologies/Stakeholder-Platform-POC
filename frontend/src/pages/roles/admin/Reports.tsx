@@ -46,9 +46,9 @@ const chartData = [
 ];
 
 const distributionData = [
-  { name: 'Online', value: 35, color: '#16A34A' },
-  { name: 'In-person', value: 40, color: '#22C55E' },
-  { name: 'Hybrid', value: 25, color: '#86EFAC' },
+  { name: 'Online', value: 35, color: '#FF6B6B' },
+  { name: 'In-person', value: 40, color: '#4ECDC4' },
+  { name: 'Hybrid', value: 25, color: '#45B7D1' },
 ];
 
 interface ReportData {
@@ -132,7 +132,7 @@ export function Reports() {
               <ToggleButton value="line">Line</ToggleButton>
             </ToggleButtonGroup>
           </Stack>
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={220}>
             {chartType === 'bar' ? (
               <BarChart data={chartData}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -140,9 +140,9 @@ export function Reports() {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="events" fill="#16A34A" name="Events" />
-                <Bar dataKey="registrations" fill="#22C55E" name="Registrations" />
-                <Bar dataKey="attendance" fill="#86EFAC" name="Attendance" />
+                <Bar dataKey="events" fill="#FF6B6B" radius={[8, 8, 0, 0]} name="Events" />
+                <Bar dataKey="registrations" fill="#4ECDC4" radius={[8, 8, 0, 0]} name="Registrations" />
+                <Bar dataKey="attendance" fill="#45B7D1" radius={[8, 8, 0, 0]} name="Attendance" />
               </BarChart>
             ) : (
               <LineChart data={chartData}>
@@ -151,9 +151,9 @@ export function Reports() {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="events" stroke="#16A34A" strokeWidth={2} name="Events" />
-                <Line type="monotone" dataKey="registrations" stroke="#22C55E" strokeWidth={2} name="Registrations" />
-                <Line type="monotone" dataKey="attendance" stroke="#86EFAC" strokeWidth={2} name="Attendance" />
+                <Line type="monotone" dataKey="events" stroke="#FF6B6B" strokeWidth={2.5} dot={{ fill: '#FF6B6B', r: 4 }} activeDot={{ r: 6 }} name="Events" />
+                <Line type="monotone" dataKey="registrations" stroke="#4ECDC4" strokeWidth={2.5} dot={{ fill: '#4ECDC4', r: 4 }} activeDot={{ r: 6 }} name="Registrations" />
+                <Line type="monotone" dataKey="attendance" stroke="#45B7D1" strokeWidth={2.5} dot={{ fill: '#45B7D1', r: 4 }} activeDot={{ r: 6 }} name="Attendance" />
               </LineChart>
             )}
           </ResponsiveContainer>
@@ -168,7 +168,7 @@ export function Reports() {
               <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
                 Event Type Distribution
               </Typography>
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height={220}>
                 <PieChart>
                   <Pie
                     data={distributionData}
@@ -177,14 +177,15 @@ export function Reports() {
                     labelLine={false}
                     label={({ name, value }) => `${name}: ${value}%`}
                     outerRadius={100}
-                    fill="#8884d8"
+                    fill="#FF6B6B"
                     dataKey="value"
                   >
                     {distributionData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
-                  <Tooltip />
+                  <Tooltip formatter={(value) => `${value}%`} />
+                  <Legend />
                 </PieChart>
               </ResponsiveContainer>
             </CardContent>
