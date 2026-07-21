@@ -68,7 +68,7 @@ function ProtectedRoutes() {
   const hasSelectedRole = useSelector((state: RootState) => state.ui.hasSelectedRole);
 
   if (!hasSelectedRole) {
-    return <Navigate to="/landing" replace />;
+    return <LoginPage />;
   }
 
   return (
